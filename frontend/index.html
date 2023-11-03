@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jsCSS.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" -->
+    <!-- integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
+    <title>ToDoList</title>
+</head>
+<body>
+    <div class="main">
+        <span class="header-grey" style="font-size: 2em;">NOTEPAD</span>
+        <div class="submain">
+            <div class="topBar">
+                <div class="listButtons">
+                    <button class="roundedBtn taskListBtn" id="allList">&nbsp; All &nbsp;</button>
+                    <button class="roundedBtn taskListBtn" id="completedList">Completed</button>
+                    <button class="roundedBtn taskListBtn"id="pendingList">Pending</button>
+                </div>
+                <button class="roundedBtn" id="addBtn" > Create</button>
+            </div>
+            <div id="taskLists">
+            </div>
+        </div>
+        <div id="notifyModel">
+            <span id="notifyText">
+                Completed 
+            </span>
+        </div>
+        <div id="deleteConfirmModel">
+           <div class="deleteConfirmModelBox" style=" background-color: rgb(135, 199, 207);padding: 10px; border-radius: 25px; z-index: 2; color: white; display: flex;justify-content: center;align-items: center; flex-direction: column; gap: 15px;">
+            <span id="deleteConfirmText" style="z-index: 2; color: black;">
+                Confirm delete ?
+            </span>
+            <div class="deleteConfirmButtons" style="z-index: 2;">
+                <button class="roundedBtn " id="cancelDeleteBtn" >Cancel</button>
+                <button class="roundedBtn" id="confirmDeleteBtn" style="background-color: rgb(255, 113, 113);">Delete</button>
+            </div>
+           </div>
+        </div>
+        <!-- Input Model -->
+        <div class="taskInputContainer" id="inputContainer" >
+            <div class="taskInput">
+                <span class="header-bold"> Create new note </span>
+                <div class="inputBar">
+                    <span class="titleHeaders">Title:</span>
+                    <input type="text" id="titleText" required>
+                    <br><br>
+                    <span class="titleHeaders">Description:</span>
+                    <textarea style="resize: none;" cols="30" rows="5" id="desText" required></textarea>
+                </div>
+                <div class="buttons" >
+                    <button class="roundedBtn btnDanger"    id="cancelBtn">Cancel</button>
+                    <button class="roundedBtn" type="submit" id="createBtn" type="submit">Create</button>
+                </div>
+            </div>
+        </div>
+        <div id="editModel">
+            <div class="taskInput">
+                <span class="header-bold"> Edit note </span>
+                <div class="inputBar">
+                    <span class="titleHeaders">Title:</span>
+                    <input type="text" id="editTitleText" required>
+                    <br><br>
+                    <span class="titleHeaders">Description:</span>
+                    <textarea style="resize: none;" cols="30" rows="5" id="editDesText" required></textarea>
+                </div>
+                <div class="buttons" >
+                    <button class="roundedBtn btnDanger"    id="editCancelBtn">Cancel</button>
+                    <button class="roundedBtn" type="submit" id="editEditBtn" type="submit">Edit</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</html>

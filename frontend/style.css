@@ -1,0 +1,212 @@
+ @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Mulish', sans-serif;
+}
+.roundedBtn{
+    border-radius: 25px;
+    padding: 1vh 2vh;
+    color: black;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 2px 1px rgb(184, 183, 183),2px 2px 2px 1px rgb(204, 204, 204);
+    background-color: rgb(211, 247, 157);
+    cursor: pointer;
+}
+.roundedBtn:hover{
+    background-color:greenyellow;
+}
+.btnDanger{
+    background-color: rgb(255, 133, 133);
+    box-shadow: 2px 2px 2px 1px rgb(184, 183, 183),2px 2px 2px 1px rgb(204, 204, 204);
+
+
+
+}
+.btnDanger:hover{
+    background-color: rgb(241, 123, 123);
+}
+.main{
+    height: 100vh;
+    background-color: #F9F6EE;
+    width: 100%;
+}
+.header-grey{
+    color: grey;
+    font-family: sans-serif;
+}
+.submain{
+    margin-left: 20%;
+    margin-right: 20%;
+    position: absolute;
+    width: 60%;
+
+}
+.listButtons{
+    display: flex;
+    gap: 10px;
+}
+.topBar{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+#addBtn{
+    box-shadow: 2px 2px 2px 1px rgb(184, 183, 183),2px 2px 2px 1px rgb(204, 204, 204);
+    background-color: rgb(157, 228, 238);
+}
+
+.taskInputContainer{
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    top: -100vh;
+    transition: 0.3s ease-in;
+    justify-content: center;
+    align-items: center;
+}
+.taskInput{
+    padding: 20px;
+    width: 20em;
+    background-color:rgb(221, 235, 232);
+    box-sizing: border-box;
+    box-shadow: 2px 2px 2px 1px rgb(184, 183, 183),-2px -2px 2px 1px rgb(204, 204, 204);
+    height: fit-content;
+    border-radius: 25px;
+}
+.inputBar{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.header-bold{
+    font-weight: 500;
+    font-size: 1.5em;
+}
+.inputBar input{
+    border-radius:0px 5px 5px 5px;
+    border: none;
+    background-color: rgb(255, 241, 241);
+    font-size: 1.4em;
+    border-radius: 0px 25px 25px 25px;
+    box-shadow: 1px 1px 2px 1px rgb(184, 183, 183),1px 1px 2px 1px rgb(204, 204, 204);
+
+}
+.inputBar input:focus{
+    outline: none;
+}
+#desText, #editDesText{
+    box-shadow: 1px 1px 2px 1px rgb(184, 183, 183),1px 1px 2px 1px rgb(204, 204, 204);
+    background-color: rgb(255, 241, 241);
+    border: none;
+    border-radius: 0px 25px 25px 25px;
+
+}
+#desText:focus,#editDesText:focus{
+    outline: none;
+}
+.titleHeaders{
+    background-color: rgb(255, 241, 241);
+    box-shadow: 1px 1px 2px 1px rgb(184, 183, 183),1px 1px 2px 1px rgb(204, 204, 204);
+    width: fit-content;
+    border-radius: 20px 20px 0px 0px;
+    padding: 5px 10px;
+}
+.buttons{
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 1em;
+}
+#editModel{
+    position: relative;
+    top: -100vh;
+    transition: 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+#notifyModel{
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    top: -30vh;
+    transition: 0.2s ease-in-out;
+    z-index: 2;
+}
+#notifyText{
+    background-color: rgb(90, 92, 226);
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 2px 1px rgb(184, 183, 183),1px 1px 2px 1px rgb(204, 204, 204);
+}
+#titleText,#desText,#editTitleText,#editTitleText{
+    padding: 0px 5px;
+}
+#titleText:focus,#desText:focus,#editTitleText:focus,#editTitleText:focus{
+    background-color: rgb(255, 228, 228);
+}
+input{
+    padding-left: 10px 20px!important; 
+    font-size: large!important;
+}
+textarea{
+    padding: 10px 10px !important;
+}
+#deleteConfirmModel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease-in-out;
+    top: -90vh;
+    z-index: 2;
+    position: relative;
+}
+.deleteConfirmModelBox{
+    box-shadow: 1px 1px 2px 1px rgb(184, 183, 183),1px 1px 2px 1px rgb(204, 204, 204);
+
+}
+#confirmDeleteBtn:hover{
+    background-color: red;
+}
+
+
+@media (max-width:600px){
+    .topBar{
+        margin: 20px 5px 0px 5px ;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .submain{
+        width: 100%;
+        margin: 0px;
+    }
+    .listItem{
+        margin:20px 10px 0px 10px;
+        width: 95%!important;
+    
+    }
+    .taskInput{
+        margin: 15% 15% 0 15%;
+        width: 70%;
+    }
+    .taskInputContainer{
+        justify-content: center;
+        align-items: center;
+    }
+ 
+}
