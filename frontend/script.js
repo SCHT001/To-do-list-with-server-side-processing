@@ -45,7 +45,7 @@ function addTask() {
     addPromise.then(() => {
         var newObj =
         {
-            id: (Date.now()%10000),
+            id: (Date.now()),
             hours: hrs,
             minutes: mins,
             head: title,
@@ -54,11 +54,8 @@ function addTask() {
             status: 0
         }
         newTaskToServer(newObj);
-        state.tasks.push(newObj);
         inputContainer.style.top = '-100vh';
-        localStorage.setItem('task', JSON.stringify(state.tasks));
-        // getFromLocalStorage();
-        displayTask();
+        
         clearInput();
         notify("Task Added");
     },
@@ -72,17 +69,6 @@ function clearInput() {
     document.getElementById('titleText').value = '';
     document.getElementById('desText').value = '';
 }
-function deleteItem(id) {
-    const index = state.tasks.findIndex((item) => {
-        return item.id === id;
-    });
-    state.tasks.splice(index, 1);
-    localStorage.setItem('task', JSON.stringify(state.tasks));
-    getFromLocalStorage();
-    displayTask();
-    confirmDeleteModel.style.top='-100vh';
-    notify("Task Deleted");
-}
 function completeTask(id) {
 
     const index = state.tasks.findIndex((item) => {
@@ -94,24 +80,22 @@ function completeTask(id) {
     displayTask();
 
 }
-function getFromLocalStorage() {
-    const tasks = localStorage.getItem('task');
-    state.tasks = tasks ? JSON.parse(tasks) : [];
 
-}
 function displayTask() {
     const container = document.getElementById('taskLists');
     container.innerHTML = '';
     if (state.tasks.length > 0) {
+        console.log(state.tasks);
         state.tasks.forEach((task) => {
+            console.log(task.creation_date.weekDay);
             const div = document.createElement('div');
             div.classList.add('divS');
             div.innerHTML = (`<div class="listItem" style="background-color: transparent;" >
             <div class='sideDate'>
-            <span class='weekDay'>${state.weekDay[task.week]}</span>
-            <span class='time'>${task.hours}:${task.minutes}</span> </div>
+             <span class='weekDay'>${task.creation_date.weekDay}</span>
+            <span class='time'>${task.creation_date.hrs}:${task.creation_date.mins}</span> </div>
             <div class='mainSide'>
-            <span class='titleSpan'>${task.title}</span>
+            <span class='titleSpan'>${task.head}</span>
             <span class='desSpan'>${task.description}</span>
             </div>
             <div class="sideBtn">
@@ -141,7 +125,7 @@ document.getElementById('completedList').addEventListener('click', displayComple
 function displayCompleted() {
 
     taskList.innerHTML = ``;
-    getFromLocalStorage();
+    // getFromLocalStorage();
     const task = state.tasks;
     const completedTasks = task.filter((item) => {
         return item.status == 1;
@@ -157,14 +141,14 @@ function displayCompleted() {
 
 //All list display
 document.getElementById('allList').addEventListener('click', () => {
-    getFromLocalStorage();
+    // getFromLocalStorage();
     displayTask();
 })
 
 //Pending Display
 document.getElementById('pendingList').addEventListener('click', () => {
     taskList.innerHTML = ``;
-    getFromLocalStorage();
+    // getFromLocalStorage();
     const task = state.tasks;
     const pendingTasks = task.filter((item) => {
         return item.status == 0;
@@ -189,18 +173,19 @@ function editItem(id) {
     const index = state.tasks.findIndex((item) => {
         return item.id === id;
     });
-    editTitle.value = state.tasks[index].title;
+    editTitle.value = state.tasks[index].head;
     editDes.value = state.tasks[index].description;
 
     editCalcelBtn.addEventListener('click', () => {
         editModel.style.top = '-100vh';
     })
     editEditBtn.addEventListener('click', () => {
-        state.tasks[index].title = editTitle.value;
-        state.tasks[index].description = editDes.value;
-        localStorage.setItem('task', JSON.stringify(state.tasks));
+        // state.tasks[index].title = editTitle.value;
+        // state.tasks[index].description = editDes.value;
+        // localStorage.setItem('task', JSON.stringify(state.tasks));
+        editServerItem(id);
         editModel.style.top = '-100vh';
-        getFromLocalStorage();
+        // getFromLocalStorage();
         displayTask();
         notify("Task Edited");
     })
@@ -215,9 +200,8 @@ function notify(text) {
         notifyModel.style.top = "-30vh";
     }, 2000)
 }
-getFromLocalStorage();
-displayTask();
-getFromLocalStorage();
+// getFromLocalStorage();
+// getFromLocalStorage();
 
 const taskListBtns = document.querySelectorAll('.taskListBtn');
 taskListBtns.forEach((btn) => {
@@ -246,6 +230,7 @@ function confirmDelete(id){
 }
 
 async function getFromServer(){
+    state.tasks=[];
     await fetch('http://localhost:3000/getTasks',{
         method:'GET',
     })
@@ -256,37 +241,102 @@ async function getFromServer(){
         return response.json();
     })
     .then(data =>{
-        // console.log(data);
-       
+        
+    //    console.log(data);
         data.forEach((item)=>{
             state.tasks.push(item);
         })
+        console.log(state.tasks)
         displayTask();
     })
     .catch((error)=>{
         console.log(error);
     })
 }
-getFromServer();
 
 async function newTaskToServer(obj){
     const requestBody={
         "id":obj.id,
         "head":obj.head,
         "description":obj.description,
-        "creation_date":{hrs:obj.hours,mins:obj.mins,weekDay:obj.weekDay},
+        "creation_date":{
+            hrs:obj.hours,
+            mins:obj.minutes,
+            weekDay:obj.weekDay
+        },
         "status":obj.status
     };
     await fetch('http://localhost:3000/addTask',{
         method:'POST',
+        headers:{
+            "content-Type":"application/json"
+        },
         body:JSON.stringify(requestBody),
     })
     .then(response=>{
         if(!response.ok){
-            console.log('Response error');
+            return console.log('Response error');
         }
     })
     .then(data=>{
         // console.log(data);
     })
+    getFromServer();
+    displayTask();
+    
 }
+async function deleteItem(id){
+    await fetch(`http://localhost:3000/deleteTask/${id}`,{
+        method:'DELETE'
+    })
+    .then((response)=>{
+        if(!response.ok) return console.log('server error');
+    })
+    .then((data)=>{
+        console.log(data);
+    })
+    getFromServer();
+    displayTask();
+    confirmDeleteModel.style.top='-100vh';
+    notify('Task Deleted');
+}
+
+
+async function editServerItem(id){
+    const editTitle = document.getElementById('editTitleText');
+    const editDes = document.getElementById('editDesText');
+    editModel.style.top='0vh';
+    const index = state.tasks.findIndex((item) => {
+        return item.id === id;
+    });
+    console.log(id);
+    var currdate = new Date;
+    var mins = currdate.getMinutes();
+    var hrs = currdate.getHours();
+    var weekDay = currdate.getDay();
+    const requestBody={
+        "id":id,
+        "head":editTitle.value,
+        "description":editDes.value,
+        "creation_date":{
+            hrs:currdate.getHours(),
+            mins:currdate.getMinutes(),
+            weekDay:currdate.getDay()
+        },
+        "status":state.tasks[index].status,
+    };
+    await fetch(`http://localhost:3000/updateTask/${id}`,{
+        method:'PATCH',
+        headers:{
+            "content-Type":"application/json"
+        },
+        body:JSON.stringify(requestBody)
+    })
+    .then((response)=>{
+        if(!response.ok) return console.log("server error");
+    })
+    getFromServer();
+    displayTask();
+}
+getFromServer();
+displayTask();
