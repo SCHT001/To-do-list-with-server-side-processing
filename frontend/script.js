@@ -92,7 +92,7 @@ function displayTask() {
             div.classList.add('divS');
             div.innerHTML = (`<div class="listItem" style="background-color: transparent;" >
             <div class='sideDate'>
-             <span class='weekDay'>${task.creation_date.weekDay}</span>
+             <span class='weekDay'>${state.weekDay[task.creation_date.weekDay]}</span>
             <span class='time'>${task.creation_date.hrs}:${task.creation_date.mins}</span> </div>
             <div class='mainSide'>
             <span class='titleSpan'>${task.head}</span>
