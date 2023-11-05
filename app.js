@@ -64,7 +64,7 @@ app.post("/addTask", (req, res) => {
 			console.log(error);
 			return res.status(500).send("Server error");
 		}
-		console.log(result);
+		// console.log(result);
 		return res.status(200).send("Task added");
 	});
 });

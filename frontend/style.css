@@ -178,6 +178,9 @@ textarea{
 #confirmDeleteBtn:hover{
     background-color: red;
 }
+#allList{
+    background-color: greenyellow;
+}
 
 
 @media (max-width:600px){
